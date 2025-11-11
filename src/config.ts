@@ -65,9 +65,9 @@ export const profileConfig: ProfileConfig = {
 			url: "https://space.bilibili.com/158360900?spm_id_from=333.1007.0.0",
 		},
 		{
-			name: "Steam",
-			icon: "fa6-brands:steam",
-			url: "https://store.steampowered.com",
+			name: "Zhihu",
+			icon: "fa6-brands:zhihu",
+			url: "https://www.zhihu.com/people/ma-li-yao-14",
 		},
 		{
 			name: "GitHub",
