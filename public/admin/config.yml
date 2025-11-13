@@ -20,9 +20,9 @@ collections:
       - { label: "封面图", name: "image", widget: "image", required: false }
       - { label: "标签", name: "tags", widget: "list", required: false }
       - { label: "分类", name: "category", widget: "string", required: false }
-      - { label: "草稿", name: "draft", widget: "boolean", default: true }
+      - { label: "草稿", name: "draft", widget: "boolean", default: false }
       - { label: "语言", name: "lang", widget: "string", required: false, default: "zh-CN" }
       - { label: "正文", name: "body", widget: "markdown" }
 
 media_folder: "src/assets/images" # 文件将被存储在仓库中的位置
-public_folder: "src/assets/images" # 上传媒体文件的 src 属性
+public_folder: "/src/assets/images" # 上传媒体文件的 src 属性
