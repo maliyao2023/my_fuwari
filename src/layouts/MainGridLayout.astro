@@ -3,7 +3,7 @@ import BackToTop from "@components/control/BackToTop.astro";
 import Footer from "@components/Footer.astro";
 import Navbar from "@components/Navbar.astro";
 import SideBar from "@components/widget/SideBar.astro";
-import type { MarkdownHeading, ImageMetadata } from "astro";
+import type { MarkdownHeading } from "astro";
 import { Icon } from "astro-icon/components";
 import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import TOC from "../components/widget/TOC.astro";
@@ -15,17 +15,9 @@ import {
 } from "../constants/constants";
 import Layout from "./Layout.astro";
 
-// --- 新增代码：开始 ---
-// 1. 创建所有 src/assets/ 目录下图片的映射
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/**/*.{png,jpg,jpeg,gif,svg,webp}"
-);
-// --- 新增代码：结束 ---
-
-
 interface Props {
 	title?: string;
-	banner?: string; // 这个 banner prop 可能是用来接收文章的封面图路径的
+	banner?: string;
 	description?: string;
 	lang?: string;
 	setOGTypeArticle?: boolean;
@@ -34,25 +26,12 @@ interface Props {
 
 const {
 	title,
-	banner, // 这个 banner 变量现在包含了从文章 Frontmatter 传来的图片路径字符串
+	banner,
 	description,
 	lang,
 	setOGTypeArticle,
 	headings = [],
 } = Astro.props;
-
-
-// --- 修改逻辑：开始 ---
-// 2. 检查 banner 路径是否存在，并从映射中获取最终优化后的 URL
-let finalBannerUrl = siteConfig.banner.src; // 默认使用网站的全局 Banner
-if (banner && images[banner]) {
-  // 如果文章有自己的 banner (封面图)，并且能在图片映射中找到
-  const imageModule = await images[banner]();
-  finalBannerUrl = imageModule.default.src; // 就使用优化后的文章封面图 URL
-}
-// --- 修改逻辑：结束 ---
-
-
 const hasBannerCredit =
 	siteConfig.banner.enable && siteConfig.banner.credit.enable;
 const hasBannerLink = !!siteConfig.banner.credit.url;
@@ -73,10 +52,9 @@ const mainPanelTop = siteConfig.banner.enable
 </div>
 
 <!-- Banner -->
-<!-- 3. 修改 ImageWrapper 的 src 属性，使用我们处理好的 finalBannerUrl -->
 {siteConfig.banner.enable && <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
     <ImageWrapper id="banner" alt="Banner image of the blog" class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
-                  src={finalBannerUrl} position={siteConfig.banner.position}
+                  src={siteConfig.banner.src} position={siteConfig.banner.position}
     >
     </ImageWrapper>
 </div>}
