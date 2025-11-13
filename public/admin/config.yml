@@ -9,10 +9,10 @@ backend:
 collections:
   - name: "post"
     label: "博文"
-    folder: "src/content/post"
+    folder: "src/content/posts"
     create: true
     slug: "{{year}}.{{month}}.{{day}}_{{slug}}"
-    
+
     fields:
       - { label: "标题", name: "title", widget: "string" }
       - { label: "发布日期", name: "published", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
